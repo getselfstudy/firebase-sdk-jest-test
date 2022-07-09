@@ -1,0 +1,110 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/functions/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/functions",
+        "main": "apps/functions/src/main.ts",
+        "tsConfig": "apps/functions/tsconfig.app.json",
+        "assets": ["apps/functions/src/assets"],
+        "webpackConfig": "apps/functions/webpack.config.js",
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/functions/src/environments/environment.ts",
+              "with": "apps/functions/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [],
+      "options": {
+        "jestConfig": "apps/functions/jest.config.ts",
+        "testPathIgnorePatterns": ["/node_modules/", "/__integration__/"],
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "integration": {
+          "testPathPattern": ["/__integration__/"],
+          "testPathIgnorePatterns": ["/node_modules/"],
+          "dependsOn": {
+            "target": "build",
+            "projects": "self"
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run functions:build --watch"
+          },
+          {
+            "command": "nx run functions:emulate"
+          }
+        ],
+        "parallel": true
+      },
+      "dependsOn": {
+        "target": "build",
+        "projects": "self"
+      }
+    },
+    "emulate": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "./run-emulator"
+          }
+        ],
+        "parallel": true
+      },
+      "dependsOn": {
+        "target": "build",
+        "projects": "self"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/functions/**/*.ts"]
+      }
+    },
+    "integration-test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "firebase emulators:exec --project test --only pubsub,firestore 'nx emulator-tests functions'"
+          }
+        ]
+      }
+    },
+    "emulator-tests": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [],
+      "options": {
+        "jestConfig": "apps/functions/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

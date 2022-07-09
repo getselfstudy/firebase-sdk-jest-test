@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+if [ ! -f "dist/apps/functions/main.js" ]
+then
+  yarn nx build functions
+fi
+if [ -n "$USE_ENV_CREDENTIALS" ]
+then
+  # by default do not inherit the credentials from .env
+  . ./read-env .env
+  if [ -z "$GOOGLE_APPLICATION_CREDENTIALS" ]
+  then
+    echo "Your .env file doesn't contain GOOGLE_APPLICATION_CREDENTIALS"
+    exit 1
+  fi
+  if [ ! -f "$GOOGLE_APPLICATION_CREDENTIALS" ]
+  then
+    echo "Your GOOGLE_APPLICATION_CREDENTIALS doesn't point at a file"
+    echo "GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS"
+    exit 1
+  fi
+else
+  export NX_FIREBASE_CONFIG='{"apiKey":"blah","authDomain":"test","projectId":"test"}'
+fi
+export NX_ROLLBAR_CLIENT_TOKEN=""
+export NX_ROLLBAR_SERVER_TOKEN=""
+if [[ $# > 0 ]]
+then
+  echo "runnning with ${@}"
+  CMD="${@}"
+  yarn firebase emulators:exec  --project test --only pubsub,auth,database,firestore,functions "${CMD}"
+else
+  echo "starting emulators"
+  yarn firebase emulators:start --project test --only pubsub,auth,database,firestore,functions
+fi

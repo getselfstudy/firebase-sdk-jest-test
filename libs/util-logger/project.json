@@ -1,0 +1,30 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/util-logger/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/util-logger/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [],
+      "options": {
+        "jestConfig": "libs/util-logger/jest.config.ts",
+        "testPathIgnorePatterns": ["/node_modules/", "/__integration__/"],
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "integration": {
+          "testPathPattern": ["/__integration__/"],
+          "testPathIgnorePatterns": ["/node_modules/"]
+        }
+      }
+    }
+  },
+  "tags": []
+}

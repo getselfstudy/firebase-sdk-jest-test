@@ -1,0 +1,119 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/react-ui/src",
+  "projectType": "library",
+  "targets": {
+    "build-for-publish": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/react-ui",
+        "tsConfig": "libs/react-ui/tsconfig.lib.json",
+        "project": "libs/react-ui/package.json",
+        "entryFile": "libs/react-ui/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "extractCss": true,
+        "styles": [],
+        "stylePreprocessorOptions": {
+          "sourceMap": false,
+          "outputFormat": "compressed"
+        },
+        "assets": [
+          {
+            "glob": "libs/react-ui/README.md",
+            "input": ".",
+            "output": "."
+          },
+          {
+            "glob": "libs/react-ui/src/",
+            "input": "assets",
+            "output": "assets"
+          },
+          {
+            "glob": "libs/react-ui/src/",
+            "input": "scss",
+            "output": "scss"
+          }
+        ]
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "cd dist/libs/react-stats && npm publish",
+            "forwardAllArgs": false
+          }
+        ]
+      },
+      "dependsOn": [
+        {
+          "target": "build-for-publish",
+          "projects": "self"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/react-ui/**/*.{ts,tsx,js,jsx}"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [],
+      "options": {
+        "jestConfig": "libs/react-ui/jest.config.ts",
+        "testPathIgnorePatterns": ["/node_modules/", "/__integration__/"],
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "integration": {
+          "testPathPattern": ["/__integration__/"],
+          "testPathIgnorePatterns": ["/node_modules/"]
+        }
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/react",
+        "port": 4400,
+        "config": {
+          "configFolder": "libs/react-ui/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "uiFramework": "@storybook/react",
+        "outputPath": "dist/storybook/react-ui",
+        "config": {
+          "configFolder": "libs/react-ui/.storybook"
+        }
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "lint-styles": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "npx stylelint libs/react-ui/src/scss/*.scss"
+      }
+    }
+  },
+  "tags": []
+}

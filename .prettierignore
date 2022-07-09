@@ -1,0 +1,11 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage
+# We don't want to prettify external MDB content (although it's on it's way out)
+/libs/activities/src/lib/library
+/auth0
+/apps/*/coverage
+/apps/*/.nyc_output
+*.typegen.ts
+

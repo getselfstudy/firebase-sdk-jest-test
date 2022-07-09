@@ -1,0 +1,9 @@
+*
+!dist/apps/server
+!dist/apps/app
+!dist/apps/app.prod
+!package.json
+!yarn.lock
+!.yarn/
+!.yarnrc.yml
+!entrypoints/*

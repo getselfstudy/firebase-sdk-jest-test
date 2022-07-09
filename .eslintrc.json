@@ -1,0 +1,72 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*", "**/*.typegen.ts"],
+  "plugins": ["@nrwl/nx", "unused-imports"],
+  "overrides": [
+    {
+      "files": ["auth0/**/*.js"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "complexity": ["error", 15],
+        "no-console": 2,
+        "unused-imports/no-unused-imports": "error",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "plugins": ["jest", "testing-library", "jest-dom"],
+      "rules": {
+        "import/first": 0,
+        "no-console": 2
+      },
+      "globals": {
+        "mockComponent": false,
+        "mockInterpret": false
+      }
+    },
+    {
+      "files": [
+        "*.stories.ts",
+        "*.stories.tsx",
+        "*.stories.js",
+        "*.stories.jsx"
+      ],
+      "rules": {
+        "no-console": 0
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {
+        "@typescript-eslint/no-unnecessary-type-constraint": 0
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+      }
+    }
+  ]
+}

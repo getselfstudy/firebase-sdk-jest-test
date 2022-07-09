@@ -1,0 +1,84 @@
+{
+  "extends": [
+    "stylelint-prettier/recommended",
+    "@primer/stylelint-config",
+    "stylelint-no-unsupported-browser-features"
+  ],
+  "customSyntax": "postcss-scss",
+  "plugins": ["stylelint-order", "stylelint-prettier"],
+  "rules": {
+    "scss/at-rule-no-unknown": null,
+    "no-duplicate-at-import-rules": null,
+    "no-invalid-position-at-import-rule": null,
+    "block-opening-brace-space-after": null,
+    "block-closing-brace-space-before": null,
+    "prettier/prettier": true,
+    "primer/no-override": null,
+    "max-line-length": 120,
+    "order/properties-alphabetical-order": null,
+    "string-quotes": "single",
+    "declaration-empty-line-before": "never",
+    "declaration-colon-newline-after": null,
+    "selector-max-compound-selectors": 10,
+    "selector-max-type": 10,
+    "selector-max-id": 1,
+    "selector-max-specificity": "10,10,10",
+    "selector-no-qualifying-type": null,
+    "max-nesting-depth": 10,
+    "declaration-property-value-disallowed-list": {
+      "transition": ["/$lightbox/"]
+    },
+    "plugin/no-unsupported-browser-features": [
+      true,
+      {
+        "severity": "warning",
+        "ignorePartialSupport": true,
+        "ignore": ["css3-cursors-newer"],
+        "browsers": ["> 2%"]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "extend",
+          "at-root",
+          "at-root.dark",
+          "at-root.hc",
+          "debug",
+          "warn",
+          "error",
+          "if",
+          "else",
+          "for",
+          "each",
+          "while",
+          "mixin",
+          "include",
+          "content",
+          "return",
+          "function",
+          "use"
+        ]
+      }
+    ],
+    "color-function-notation": "legacy",
+    "no-descending-specificity": null,
+    "font-family-no-missing-generic-family-keyword": [
+      true,
+      { "ignoreFontFamilies": ["Font Awesome 5 Pro", "Font Awesome 5 Free"] }
+    ],
+    "primer/colors": null,
+    "primer/spacing": null,
+    "primer/borders": null,
+    "primer/typography": null,
+    "alpha-value-notation": null,
+    "property-no-unknown": null,
+    "primer/no-undefined-vars": null,
+    "primer/box-shadow": null,
+    "value-list-comma-newline-after": null,
+    "selector-id-pattern": null,
+    "indentation": null,
+    "at-rule-empty-line-before": null
+  }
+}

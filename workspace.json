@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "bigquery": "libs/bigquery",
+    "functions": "apps/functions",
+    "react-ui": "libs/react-ui"
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
+}

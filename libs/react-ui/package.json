@@ -1,0 +1,8 @@
+{
+  "name": "@getselfstudy/react-ui",
+  "version": "0.3.1",
+  "style": [
+    "index.udm.css",
+    "index.esm.css"
+  ]
+}

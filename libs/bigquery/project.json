@@ -1,0 +1,29 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/bigquery/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/bigquery/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/bigquery"],
+      "options": {
+        "jestConfig": "libs/bigquery/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "integration": {
+          "testPathPattern": ["/__integration__/"],
+          "testPathIgnorePatterns": ["/node_modules/"]
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom", "es2019", "es2020"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@getselfstudy/react-stats": ["libs/react-stats/src/index.ts"],
+      "@getselfstudy/react-ui": ["libs/react-ui/src/index.ts"],
+      "@getselfstudy/state-hydration": ["libs/state-hydration/src/index.ts"],
+      "@nx-workspace/activities": ["libs/activities/src/index.ts"],
+      "@nx-workspace/auth0-firebase": ["libs/auth0-firebase/src/index.ts"],
+      "@nx-workspace/bigquery": ["libs/bigquery/src/index.ts"],
+      "@nx-workspace/compiler": ["libs/compiler/src/index.ts"],
+      "@nx-workspace/csp": ["libs/csp/src/index.ts"],
+      "@nx-workspace/pd": ["libs/pd/src/index.ts"],
+      "@nx-workspace/server-rendering": ["libs/server-rendering/src/index.ts"],
+      "@nx-workspace/tools": ["libs/tools/src/index.ts"],
+      "@nx-workspace/util-logger": ["libs/util-logger/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp", ".yarn"],
+  "watchOptions": {
+    "excludeDirectories": ["**/node_modules", "**/.yarn", "**/dist"]
+  }
+}
